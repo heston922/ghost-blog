@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  ghost:
+    image: arm32v7/ghost:3-alpine
+    restart: always
+    ports:
+      - 8080:2368
+    environment:
+      imageOptimization__resize: 'false'
+    volumes:
+      - ./ghost/config.production.json:/var/lib/ghost/config.production.json
+      - ./ghost/content:/var/lib/ghost/content
+      - ./ghost/content.orig:/var/lib/ghost/content.orig
+      - ./db_data:/var/lib/ghost/content/data
+    networks:
+      - testing
+
+networks:
+  testing:
+    external: true
+
